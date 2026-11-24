@@ -7,9 +7,12 @@ export const profile = {
   links: [
     { label: 'GitHub', href: 'https://github.com/7431N21D3R' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/fco-javier-r-96419a34a' },
-    { label: 'ORCID', href: 'https://orcid.org/0009-0000-8686-8510' }
+    { label: 'ORCID', href: 'https://orcid.org/0009-0000-8686-8510' },
+    { label: 'Hack The Box', href: 'https://app.hackthebox.com/users/155284' }
   ]
 };
+
+export const htb = { user: '1n51d3r', url: 'https://app.hackthebox.com/users/155284', rank: 'Master', level: 66, machines: 39, sherlocks: 30, challenges: 12, updated: 'noviembre de 2026' };
 
 export const nav = [
   { label: 'Inicio', href: '/' },
