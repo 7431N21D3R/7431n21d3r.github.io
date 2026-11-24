@@ -1,0 +1,130 @@
+---
+import { profile, nav } from '../data/site.js';
+const { title, description = 'Write-ups, recursos y notas de seguridad ofensiva y GRC.' } = Astro.props;
+const path = Astro.url.pathname;
+const isActive = (href) => href === '/' ? path === '/' : path.startsWith(href) || (href === '/writeups/' && path.startsWith('/posts/'));
+const pageTitle = title ? `${title} | ${profile.alias}` : `${profile.alias} | ${profile.role}`;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0F1B2D" />
+  <meta name="description" content={description} />
+  <title>{pageTitle}</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <div class="shell">
+    <aside class="rail">
+      <a class="id" href="/">
+        <img src="/avatar.svg" alt="" width="96" height="96" />
+        <span class="alias">{profile.alias}</span>
+        <span class="role">{profile.role}</span>
+      </a>
+      <nav aria-label="Secciones">
+        <ul>
+          {nav.map((item) => (
+            <li><a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <ul class="social">
+        {profile.links.map((l) => <li><a href={l.href} rel="me noopener" target="_blank">{l.label}</a></li>)}
+      </ul>
+    </aside>
+    <main id="main">
+      <slot />
+      <footer>
+        <p>Contenido con fines educativos. Las técnicas descritas se aplican solo en laboratorios autorizados.</p>
+        <p>© {new Date().getFullYear()} {profile.name}. Hecho con Astro.</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --night: #0F1B2D;
+    --panel: #15253B;
+    --line: #24395A;
+    --paper: #E9E4D6;
+    --muted: #93A1B5;
+    --amber: #F2A93B;
+    --signal: #57D3B5;
+    --sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+    --cond: 'IBM Plex Sans Condensed', 'Arial Narrow', 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--night); }
+  body { margin: 0; background: var(--night); color: var(--paper); font: 400 1.0625rem/1.65 var(--sans); }
+  a { color: var(--signal); text-underline-offset: 3px; }
+  a:hover { color: var(--amber); }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  img { max-width: 100%; height: auto; }
+  h1, h2, h3 { font-family: var(--cond); font-weight: 700; line-height: 1.15; letter-spacing: .005em; }
+  h1 { font-size: clamp(2rem, 4vw, 2.75rem); margin: 0 0 .5rem; }
+  h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; }
+  h3 { font-size: 1.15rem; margin: 1.75rem 0 .5rem; }
+  code, pre, kbd { font-family: var(--mono); font-size: .9em; }
+  :not(pre) > code { background: var(--panel); border: 1px solid var(--line); padding: .05em .35em; border-radius: 3px; }
+  pre { padding: 1rem 1.1rem; border-radius: 4px; border: 1px solid var(--line); overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  .table-wrap, .prose table { display: block; overflow-x: auto; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--cond); font-weight: 500; color: var(--muted); }
+  .skip { position: absolute; left: -999px; top: .5rem; background: var(--amber); color: var(--night); padding: .4rem .8rem; }
+  .skip:focus { left: .5rem; z-index: 10; }
+
+  .shell { display: grid; grid-template-columns: 17rem minmax(0, 1fr); min-height: 100vh; }
+  .rail { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 2rem 1.5rem; border-right: 1px solid var(--line); background: linear-gradient(180deg, #13223A 0%, var(--night) 100%); display: flex; flex-direction: column; gap: 2rem; }
+  .id { display: grid; gap: .25rem; text-decoration: none; color: var(--paper); }
+  .id img { border-radius: 50%; border: 1px solid var(--line); margin-bottom: .75rem; }
+  .alias { font-family: var(--mono); font-weight: 600; font-size: 1.05rem; color: var(--amber); }
+  .role { font-size: .9rem; color: var(--muted); }
+  .rail ul { list-style: none; margin: 0; padding: 0; }
+  .rail nav a { display: block; padding: .45rem 0 .45rem 1.1rem; text-decoration: none; color: var(--paper); font-family: var(--cond); font-weight: 500; font-size: 1.05rem; position: relative; }
+  .rail nav a::before { content: '›'; position: absolute; left: 0; color: var(--line); }
+  .rail nav a:hover::before, .rail nav a[aria-current='page']::before { color: var(--amber); }
+  .rail nav a[aria-current='page'] { color: var(--amber); }
+  .social { margin-top: auto !important; display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .9rem; }
+
+  main { padding: 3rem clamp(1.25rem, 5vw, 4rem) 2rem; max-width: 58rem; width: 100%; }
+  footer { margin-top: 5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+  footer p { margin: .25rem 0; }
+  .lede { color: var(--muted); max-width: 40rem; margin-top: 0; }
+
+  .prose { max-width: 44rem; }
+  .prose blockquote { margin: 1.25rem 0; padding: .6rem 1rem; border-left: 3px solid var(--amber); background: var(--panel); }
+  .prose blockquote p { margin: 0; }
+
+  .list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  .list li { border-bottom: 1px solid var(--line); }
+  .list a { display: grid; grid-template-columns: 1fr auto; gap: .25rem 1rem; padding: .9rem 0; text-decoration: none; color: var(--paper); }
+  .list a:hover .t { color: var(--amber); }
+  .list .t { font-family: var(--cond); font-weight: 700; font-size: 1.15rem; }
+  .list .m { color: var(--muted); font-size: .9rem; }
+  .list .d { grid-column: 1 / -1; color: var(--muted); font-size: .95rem; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .8rem; color: var(--signal); border: 1px solid var(--line); border-radius: 3px; padding: .05rem .45rem; margin: 0 .3rem .3rem 0; text-decoration: none; }
+
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    .rail { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; padding: 1rem 1.25rem; border-right: 0; border-bottom: 1px solid var(--line); }
+    .id { grid-template-columns: auto 1fr; align-items: center; column-gap: .75rem; }
+    .id img { width: 52px; height: 52px; margin: 0; grid-row: span 2; }
+    .rail nav ul { display: flex; flex-wrap: wrap; gap: 0 1.1rem; }
+    .rail nav a { padding-left: .9rem; }
+    .social { margin-top: 0 !important; width: 100%; }
+    main { padding-top: 2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
