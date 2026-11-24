@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { certifications } from '../data/site.js';
+const fmt = (d) => { const [y, m] = d.split('-'); return new Date(+y, +m - 1).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }); };
+---
+<Base title="Certificaciones">
+  <h1>Certificaciones</h1>
+  <p class="lede">Ordenadas de la más reciente a la más antigua.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Certificación</th><th>Emisor</th><th>Fecha</th><th>ID de credencial</th></tr></thead>
+      <tbody>
+        {[...certifications].sort((a, b) => b.date.localeCompare(a.date)).map((c) => (
+          <tr><td><b>{c.name}</b><br /><span class="full">{c.full}</span></td><td>{c.issuer}</td><td>{fmt(c.date)}</td><td><code>{c.id ?? '—'}</code></td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>
+<style>
+  .full { color: var(--muted); font-size: .9rem; }
+  td b { font-family: var(--cond); font-size: 1.05rem; }
+  td:nth-child(3) { white-space: nowrap; }
+</style>
