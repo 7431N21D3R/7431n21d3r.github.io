@@ -13,7 +13,7 @@ const featured = certifications.filter((c) => c.featured);
     <div class="bar"><span>{profile.host}: ~</span></div>
     <div class="screen">
       <p class="cmd"><span class="p">{profile.host}</span>:~$ whoami</p>
-      <pre class="banner" aria-label={profile.alias}>{banner}</pre>
+      <pre class="banner" aria-label={profile.alias}>{banner.trimEnd()}</pre>
       <dl class="kv">
         <dt>nombre</dt><dd>{profile.name}</dd>
         <dt>rol</dt><dd>{profile.role}</dd>
@@ -86,7 +86,7 @@ const featured = certifications.filter((c) => c.featured);
   .screen { padding: 1.25rem clamp(1rem, 3vw, 1.75rem) 1.5rem; font-family: var(--mono); font-size: .95rem; }
   .cmd { margin: 0 0 1rem; }
   .p { color: var(--signal); font-weight: 600; }
-  .banner { font-family: 'DejaVu Sans Mono', Consolas, Menlo, monospace; margin: 0 0 1.25rem; padding: 0; border: 0; background: none; color: var(--amber); font-size: clamp(.38rem, 1.15vw, .78rem); line-height: 1; text-shadow: 0 0 12px rgba(242, 169, 59, .35); overflow-x: auto; }
+  .banner { font-family: 'DejaVu Sans Mono', Consolas, Menlo, monospace; margin: 0 0 1.25rem; padding: 0; border: 0; background: none; color: var(--amber); font-size: clamp(.38rem, 1.15vw, .78rem); line-height: 1; text-shadow: 0 0 12px rgba(242, 169, 59, .35); overflow-x: auto; overflow-y: hidden; }
   .kv { display: grid; grid-template-columns: max-content 1fr; gap: .2rem 1.25rem; margin: 0 0 1.25rem; }
   .kv dt { color: var(--muted); }
   .kv dd { margin: 0; }
