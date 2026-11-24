@@ -1,0 +1,19 @@
+---
+import Base from './Base.astro';
+const { frontmatter } = Astro.props;
+const date = new Date(frontmatter.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <article class="prose">
+    <p class="back"><a href="/writeups/">Write-ups</a></p>
+    <h1>{frontmatter.title}</h1>
+    <p class="meta">{frontmatter.platform}, {frontmatter.os}, {frontmatter.difficulty}. Publicado el {date}.</p>
+    <p>{frontmatter.tags.map((t) => <a class="tag" href={`/etiquetas/#${t}`}>{t}</a>)}</p>
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .back { margin: 0 0 1rem; font-size: .9rem; }
+  .meta { color: var(--muted); margin: 0 0 .5rem; }
+</style>
