@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#0F1B2D"/>
+  <polygon points="100,22 167.5,61 167.5,139 100,178 32.5,139 32.5,61" fill="#0A1424" stroke="#57D3B5" stroke-width="5"/>
+  <text x="100" y="114" text-anchor="middle" font-family="IBM Plex Mono, Consolas, monospace" font-weight="700" font-size="46" fill="#F2A93B">[7H]</text>
+  <rect x="128" y="126" width="9" height="16" fill="#57D3B5"/>
+</svg>
