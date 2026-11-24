@@ -1,6 +1,6 @@
 export const profile = {
   alias: '7H31N51D3R',
-  name: 'Fco. Javier Rosa Mondragón',
+  name: 'FJRM',
   role: 'Penetration Tester & Cyber Risk',
   location: 'Pamplona, España',
   host: 'insider@ops',
