@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+const posts = Object.values(import.meta.glob('./posts/*.md', { eager: true }))
+  .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+const fmt = (d) => new Date(d).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<Base title="Write-ups" description="Write-ups de máquinas retiradas de Hack The Box.">
+  <h1>Write-ups</h1>
+  <p class="lede">Solo publico máquinas retiradas. Cada write-up cierra con las mitigaciones y su medida del ENS.</p>
+  <ul class="list">
+    {posts.map((p) => (
+      <li><a href={p.url}>
+        <span class="t">{p.frontmatter.title}</span>
+        <span class="m">{p.frontmatter.os}, {p.frontmatter.difficulty}</span>
+        <span class="d">{p.frontmatter.description} Publicado el {fmt(p.frontmatter.date)}.</span>
+      </a></li>
+    ))}
+  </ul>
+</Base>
