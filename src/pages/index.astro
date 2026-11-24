@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, certifications, resources } from '../data/site.js';
+import { profile, certifications, resources, htb } from '../data/site.js';
 import banner from '../data/banner.txt?raw';
 
 const posts = Object.values(import.meta.glob('./posts/*.md', { eager: true }))
@@ -66,6 +66,17 @@ const featured = certifications.filter((c) => c.featured);
     </section>
   </div>
 
+  <section class="htb">
+    <h2>Hack The Box</h2>
+    <div class="htb-card">
+      <img src="https://htb-experience-prod-public-storage.s3.amazonaws.com/assets/ranks/svg/rank_master.svg" alt="" width="72" height="72" />
+      <div>
+        <p class="htb-rank"><a href={htb.url}>{htb.user}</a>, rango {htb.rank}, nivel {htb.level}</p>
+        <p class="htb-stats">{htb.machines} máquinas, {htb.sherlocks} Sherlocks y {htb.challenges} retos resueltos. Datos de {htb.updated}.</p>
+      </div>
+    </div>
+  </section>
+
   <section>
     <h2>Recursos</h2>
     <ul class="list">
@@ -98,4 +109,8 @@ const featured = certifications.filter((c) => c.featured);
   .counts b { font-family: var(--cond); font-size: 1.6rem; color: var(--paper); margin-right: .3rem; }
   .counts a:hover b { color: var(--amber); }
   .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0 3rem; }
+  .htb-card { display: flex; align-items: center; gap: 1.25rem; padding: 1rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .htb-card p { margin: 0; }
+  .htb-rank { font-family: var(--cond); font-weight: 700; font-size: 1.2rem; }
+  .htb-stats { color: var(--muted); font-size: .95rem; }
 </style>
