@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+const posts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const tags = {};
+for (const p of posts) for (const t of p.frontmatter.tags ?? []) (tags[t] ??= []).push(p);
+const names = Object.keys(tags).sort();
+---
+<Base title="Etiquetas">
+  <h1>Etiquetas</h1>
+  <p class="lede">Técnicas y tecnologías que aparecen en los write-ups.</p>
+  {names.map((t) => (
+    <section id={t}>
+      <h2><span class="tag big">{t}</span></h2>
+      <ul class="list">
+        {tags[t].map((p) => <li><a href={p.url}><span class="t">{p.frontmatter.title}</span><span class="m">{p.frontmatter.os}</span></a></li>)}
+      </ul>
+    </section>
+  ))}
+</Base>
+<style>
+  .big { font-size: 1rem; }
+  h2 { margin-top: 2rem; }
+</style>
