@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { resources } from '../data/site.js';
+---
+<Base title="Recursos">
+  <h1>Recursos</h1>
+  <p class="lede">Guías, checklists y plantillas que uso en auditorías. Todo está en GitHub con licencia CC BY 4.0.</p>
+  <ul class="list">
+    {resources.map((r) => (
+      <li><a href={`https://github.com/7431N21D3R/${r.name}`}>
+        <span class="t">{r.title}</span>
+        <span class="m"><code>{r.name}</code></span>
+        <span class="d">{r.text}</span>
+      </a></li>
+    ))}
+  </ul>
+</Base>
