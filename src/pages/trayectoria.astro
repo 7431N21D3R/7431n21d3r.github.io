@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { career, profile } from '../data/site.js';
+---
+<Base title="Trayectoria">
+  <h1>Trayectoria</h1>
+  <p class="lede">{profile.role}. Seguridad ofensiva desde 2019, comunicaciones militares desde 2016 y, ahora, gobierno, riesgo y cumplimiento.</p>
+  <ol class="timeline">
+    {career.map((c) => (
+      <li>
+        <p class="when">{c.when}</p>
+        <h2>{c.role}</h2>
+        <p class="org">{c.org}</p>
+        {c.text && <p>{c.text}</p>}
+      </li>
+    ))}
+  </ol>
+  <p>El detalle completo está en <a href={profile.links[1].href}>LinkedIn</a> y <a href={profile.links[2].href}>ORCID</a>.</p>
+</Base>
+<style>
+  .timeline { list-style: none; margin: 2rem 0; padding: 0 0 0 1.5rem; border-left: 2px solid var(--line); max-width: 44rem; }
+  .timeline li { position: relative; padding-bottom: 2rem; }
+  .timeline li::before { content: ''; position: absolute; left: calc(-1.5rem - 6px); top: .45rem; width: 10px; height: 10px; border-radius: 50%; background: var(--night); border: 2px solid var(--amber); }
+  .when { font-family: var(--mono); font-size: .85rem; color: var(--amber); margin: 0; }
+  .timeline h2 { margin: .2rem 0 0; font-size: 1.3rem; }
+  .org { color: var(--muted); margin: 0 0 .5rem; }
+</style>
